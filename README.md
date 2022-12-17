@@ -46,12 +46,12 @@ CRUD applications are the foundation of most web applications. Being able to man
 
 ## Instructions
 ### Task 1: Project Set Up
-* [ ] Create a forked copy of this project.
-* [ ] Clone your OWN version of the repository in your terminal
-* [ ] cd into the project base directory `cd web-module-project-HTTP`
-* [ ] Download server dependencies by running `npm install`
-* [ ] Run the local web server by running `node server.js`
-* [ ] Open a new terminal window and cd into the client code `cd client`
+* [X] Create a forked copy of this project.
+* [X] Clone your OWN version of the repository in your terminal
+* [X] cd into the project base directory `cd web-module-project-HTTP`
+* [X] Download server dependencies by running `npm install`
+* [ ] Run the local web server by running `node server.js` - this failed 
+* [ ] Open a new terminal window and cd into the client code `cd client` - there is no client directory
 * [ ] Download project dependencies by running `npm install`
 * [ ] Start up the app using `npm start`
 

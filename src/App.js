@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import MovieList from './components/MovieList';
 import Movie from './components/Movie';
-
+import EditMovieForm from './components/EditMovieForm';
 import MovieHeader from './components/MovieHeader';
 
 import FavoriteMovieList from './components/FavoriteMovieList';
@@ -11,57 +11,58 @@ import FavoriteMovieList from './components/FavoriteMovieList';
 import axios from 'axios';
 
 const App = (props) => {
-  const [movies, setMovies] = useState([]);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+     const [movies, setMovies] = useState([]);
+     const [favoriteMovies, setFavoriteMovies] = useState([]);
 
-  useEffect(()=>{
-    axios.get('http://localhost:9000/api/movies')
-      .then(res => {
-        setMovies(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+     useEffect(() => {
+          axios.get('http://localhost:9000/api/movies')
+               .then(res => {
+                    setMovies(res.data);
+               })
+               .catch(err => {
+                    console.log(err);
+               });
+     }, []);
 
-  const deleteMovie = (id)=> {
-  }
+     const deleteMovie = (id) => {
+     }
 
-  const addToFavorites = (movie) => {
-    
-  }
+     const addToFavorites = (movie) => {
 
-  return (
-    <div>
-      <nav className="navbar navbar-dark bg-dark">
-        <span className="navbar-brand" > HTTP / CRUD Module Project</span>
-      </nav>
+     }
 
-      <div className="container">
-        <MovieHeader/>
-        <div className="row ">
-          <FavoriteMovieList favoriteMovies={favoriteMovies}/>
-        
-          <Switch>
-            <Route path="/movies/edit/:id">
-            </Route>
+     return (
+          <div>
+               <nav className="navbar navbar-dark bg-dark">
+                    <span className="navbar-brand" > HTTP / CRUD Module Project</span>
+               </nav>
 
-            <Route path="/movies/:id">
-              <Movie/>
-            </Route>
+               <div className="container">
+                    <MovieHeader />
+                    <div className="row ">
+                         <FavoriteMovieList favoriteMovies={favoriteMovies} />
 
-            <Route path="/movies">
-              <MovieList movies={movies}/>
-            </Route>
+                         <Switch>
+                              <Route path="/movies/edit/:id">
+                                   <EditMovieForm />
+                              </Route>
 
-            <Route path="/">
-              <Redirect to="/movies"/>
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    </div>
-  );
+                              <Route path="/movies/:id">
+                                   <Movie />
+                              </Route>
+
+                              <Route path="/movies">
+                                   <MovieList movies={movies} />
+                              </Route>
+
+                              <Route path="/">
+                                   <Redirect to="/movies" />
+                              </Route>
+                         </Switch>
+                    </div>
+               </div>
+          </div>
+     );
 };
 
 
