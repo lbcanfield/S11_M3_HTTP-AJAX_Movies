@@ -1,51 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import appData from '../appData/data';
-
 import axios from 'axios';
 
-const EditMovieForm = (props) => {
+const NewMovieForm = (props) => {
      const { push } = useHistory();
-     const { id } = useParams();
-     console.log(id);
 
-     const { setMovies } = props;
-     const [movie, setMovie] = useState({
+     const initialMovieState = {
           title: "",
           director: "",
           genre: "",
           metascore: 0,
           description: ""
-     });
+     }
+     const [movie, setMovie] = useState(initialMovieState);
 
      const handleChange = (e) => {
           setMovie({
                ...movie,
                [e.target.name]: e.target.value
           });
-     }
-     useEffect(() => {
-          axios.get(`${appData.baseURL}${id}`)
-               .then(response => {
-                    // console.log(response)
-                    setMovie(response.data);
-               })
-               .catch(error => {
-                    console.log(error)
-               })
-     }, [])
+          console.log(movie);
 
-     const handleSubmit = (e) => {
-          e.preventDefault();
-          axios.put(`${appData.baseURL}${id}`, movie)
-               .then(res => {
-                    setMovies(res.data);
-                    push(`/movies/${movie.id}`);
+     }
+
+     const handleSubmit = (event) => {
+          event.preventDefault();
+          axios.post(`${appData.baseURL}`, movie)
+               .then(response => {
+                    props.setMovies(response.data);
+                    push('/movies')
                })
-               .catch(err => {
-                    console.log(err);
-               })
+               .catch(error)
      }
 
      const { title, director, genre, metascore, description } = movie;
@@ -55,7 +41,7 @@ const EditMovieForm = (props) => {
                <div className="modal-content">
                     <form onSubmit={handleSubmit}>
                          <div className="modal-header">
-                              <h4 className="modal-title">Editing <strong>{movie.title}</strong></h4>
+                              <h4 className="modal-title">Creating <strong>{movie.title}</strong></h4>
                          </div>
                          <div className="modal-body">
                               <div className="form-group">
@@ -81,7 +67,7 @@ const EditMovieForm = (props) => {
 
                          </div>
                          <div className="modal-footer">
-                              <input type="submit" className="btn btn-info" value="Save" />
+                              <input type="submit" className="btn btn-info" value="Create" />
                               <Link to={`/movies`}><input type="button" className="btn btn-default" value="Cancel" /></Link>
                          </div>
                     </form>
@@ -89,4 +75,4 @@ const EditMovieForm = (props) => {
           </div>);
 }
 
-export default EditMovieForm;
+export default NewMovieForm;
